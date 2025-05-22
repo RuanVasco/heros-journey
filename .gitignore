@@ -1,0 +1,35 @@
+# Build artifacts
+/build/
+/CMakeFiles/
+/CMakeCache.txt
+/Makefile
+/install_manifest.txt
+/*.sln
+/*.vcxproj*
+/Debug/
+/Release/
+
+*.dll
+*.lib
+*.pdb
+*.exp
+
+# VSCode settings (mantém apenas arquivos úteis)
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/c_cpp_properties.json
+!.vscode/settings.json
+
+# Logs e backups
+*.log
+*.tmp
+*~
+
+# Gerado por compilações
+compile_commands.json
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+desktop.ini
