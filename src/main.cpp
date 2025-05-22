@@ -3,7 +3,7 @@
 
 int main() {
 
-    sf::RenderWindow window(sf::VideoMode({800, 600}), "Journey Hero");
+    sf::RenderWindow window(sf::VideoMode({800, 600}), "Hero's Journey");
     sf::Font font;
 
     if (!font.openFromFile("fonts/arial.ttf")) {

@@ -2,10 +2,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Hero Journey (MSVC + SFML)",
+      "name": "Hero's Journey (MSVC + SFML)",
       "type": "cppvsdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/Debug/HeroJourney.exe",
+      "program": "${workspaceFolder}/build/Debug/HerosJourney.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
