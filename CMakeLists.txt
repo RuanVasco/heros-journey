@@ -6,7 +6,14 @@ set(CMAKE_PREFIX_PATH "D:/SFML")
 
 find_package(SFML 3 REQUIRED COMPONENTS Graphics Window Audio System)
 
-add_executable(HerosJourney src/main.cpp)
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
+
+add_executable(HerosJourney ${SOURCES})
+
+target_include_directories(HerosJourney PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/scenes
+)
 
 target_link_libraries(HerosJourney PRIVATE
     SFML::Graphics
