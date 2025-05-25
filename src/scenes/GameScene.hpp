@@ -1,16 +1,16 @@
-#pragma once
-#include <memory>
+#include "../Game.hpp"
+#include "Scene.hpp"
 #include <SFML/Graphics.hpp>
 
-class Scene;
-
-class Game {
+class GameScene : public Scene {
 public:
-    Game(unsigned width, unsigned height);
-    void run();
-    void changeScene(std::unique_ptr<Scene> newScene);
+    GameScene(Game& game);
+
+    void handleEvent(const sf::Event& event, sf::RenderWindow& window) override;
+    void update() override;
+    void draw(sf::RenderWindow& window) override;
 
 private:
-    sf::RenderWindow window;
-    std::unique_ptr<Scene> currentScene;
+    Game& game;
+    sf::CircleShape player;
 };

@@ -9,6 +9,7 @@ public:
     Game(unsigned width, unsigned height, const std::string& title);
     void run();
 
+    void changeScene(std::unique_ptr<Scene> newScene);
     const sf::Font& getFont() const;
     const sf::Cursor& getArrowCursor() const { return arrowCursor; }
     const sf::Cursor& getHandCursor()  const { return handCursor; }

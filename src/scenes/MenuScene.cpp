@@ -2,9 +2,8 @@
 
 MenuScene::MenuScene(Game& game) : game(game) {
     const std::vector<std::string> labels = {"Jogar", "Ver Pontuação"};
-    
+
     const sf::Font& font = game.getFont();
-    std::vector<sf::Text> menuItems;
     constexpr unsigned CHAR_SIZE = 36;
     constexpr float verticalSpacing = 60.f;
 
@@ -27,28 +26,36 @@ MenuScene::MenuScene(Game& game) : game(game) {
 }
 
 
-void MenuScene::handleInput(sf::RenderWindow& window) {
-    hovering = false;
-    sf::Vector2f mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
-
-    for (auto& item : menuItems) {
-        if (item.getGlobalBounds().contains(mousePos)) {
-            item.setFillColor(sf::Color::Yellow);
-            hovering = true;
-
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-                if (item.getString() == "Jogar") {
-                    std::cout << "Iniciar jogo...\n";
-                } else if (item.getString() == "Ver Pontuação") {
-                    std::cout << "Abrir placar...\n";
-                }
+void MenuScene::handleEvent(const sf::Event& event, sf::RenderWindow& window) {
+    if (event.is<sf::Event::MouseMoved>()) {
+        hovering = false;
+        sf::Vector2f mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
+        for (auto& item : menuItems) {
+            if (item.getGlobalBounds().contains(mousePos)) {
+                item.setFillColor(sf::Color::Yellow);
+                hovering = true;
+            } else {
+                item.setFillColor(sf::Color::White);
             }
-        } else {
-            item.setFillColor(sf::Color::White);
         }
+        window.setMouseCursor(hovering ? game.getHandCursor() : game.getArrowCursor());
     }
 
-    window.setMouseCursor(hovering ? game.getHandCursor() : game.getArrowCursor());
+    if (const auto* mouse = event.getIf<sf::Event::MouseButtonPressed>()) {
+        if (mouse->button == sf::Mouse::Button::Left) {
+            sf::Vector2f mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
+            for (auto& item : menuItems) {
+                if (item.getGlobalBounds().contains(mousePos)) {
+                    if (item.getString() == "Jogar") {
+                        game.changeScene(std::make_unique<GameScene>(game));
+                        return;
+                    } else if (item.getString() == "Ver Pontuação") {
+                        std::cout << "Abrir placar...\n";
+                    }
+                }
+            }
+        }
+    }
 }
 
 void MenuScene::update() {}
