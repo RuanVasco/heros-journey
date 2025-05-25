@@ -1,16 +1,19 @@
 #include "../Game.hpp"
 #include "Scene.hpp"
 #include <SFML/Graphics.hpp>
+#include "../input/KeyMap.hpp"
 
-class GameScene : public Scene {
+class BatteryScene : public Scene {
 public:
-    GameScene(Game& game);
+    BatteryScene(Game& game);
 
     void handleEvent(const sf::Event& event, sf::RenderWindow& window) override;
-    void update() override;
+    void fixedUpdate() = 0;
+    void update(const sf::Time& dt) override;
     void draw(sf::RenderWindow& window) override;
 
 private:
     Game& game;
     sf::CircleShape player;
+    KeyMap keyMap;
 };

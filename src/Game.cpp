@@ -34,7 +34,14 @@ void Game::changeScene(std::unique_ptr<Scene> newScene) {
 }
 
 void Game::run() {
+    sf::Clock clock;
+    const float fixedTimeStep = 1.f / 60.f;
+    float accumulator = 0.f;
+
     while (window.isOpen()) {
+        sf::Time dt = clock.restart();
+        accumulator += dt.asSeconds();
+
         while (const std::optional event = window.pollEvent()) {
             if (event->is<sf::Event::Closed>())
                 window.close();
@@ -42,7 +49,13 @@ void Game::run() {
             if (event.has_value())
                 currentScene->handleEvent(*event, window);
         }
-        currentScene->update();
+
+        while (accumulator >= fixedTimeStep) {
+            currentScene->fixedUpdate();
+            accumulator -= fixedTimeStep;
+        }
+
+        currentScene->update(dt);
 
         window.clear();
         currentScene->draw(window);

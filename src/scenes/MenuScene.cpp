@@ -47,7 +47,7 @@ void MenuScene::handleEvent(const sf::Event& event, sf::RenderWindow& window) {
             for (auto& item : menuItems) {
                 if (item.getGlobalBounds().contains(mousePos)) {
                     if (item.getString() == "Jogar") {
-                        game.changeScene(std::make_unique<GameScene>(game));
+                        game.changeScene(std::make_unique<BatteryScene>(game));
                         return;
                     } else if (item.getString() == "Ver Pontuação") {
                         std::cout << "Abrir placar...\n";
@@ -58,7 +58,8 @@ void MenuScene::handleEvent(const sf::Event& event, sf::RenderWindow& window) {
     }
 }
 
-void MenuScene::update() {}
+void MenuScene::update(const sf::Time& dt) {}
+void BatteryScene::fixedUpdate() {}
 
 void MenuScene::draw(sf::RenderWindow& window) {
     for (const auto& item : menuItems) {
